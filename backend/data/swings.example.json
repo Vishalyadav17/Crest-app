@@ -1,0 +1,9 @@
+{
+  "budget": 100000,
+  "active": [
+    {"sym":"RELIANCE", "sector":"Energy", "qty":5, "avg":1300.00, "ltp":1388.00, "sl":1250, "target":1500, "exit_rule":"Trailing SL on daily close"}
+  ],
+  "closed": [
+    {"sym":"ITC", "sector":"FMCG", "avg":290, "exit":306, "qty":10, "realized_pnl":160, "exit_date":"2026-01-01", "note":"Sample closed trade"}
+  ]
+}

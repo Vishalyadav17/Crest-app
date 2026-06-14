@@ -1,0 +1,17 @@
+{
+  "stage2": [
+    "POLYCAB",
+    "SUNPHARMA",
+    "NESTLEIND"
+  ],
+  "stage4": [
+    "TITAN",
+    "PNB",
+    "HINDPETRO"
+  ],
+  "ambiguous": [
+    "TATASTEEL",
+    "UNIONBANK",
+    "IRFC"
+  ]
+}

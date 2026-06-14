@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crest — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+  }
+  :root {
+    --bg: #0b1326; --surface: #171f33; --surface2: #131b2e;
+    --border: #334155; --text: #dae2fd; --muted: #8d909f; --muted2: #c3c6d5;
+    --blue: #b1c5ff; --blue-action: #0051c0; --red: #EF4444;
+    --font-sans: 'Geist', system-ui, sans-serif;
+    --font-mono: 'Geist Mono', 'Geist', monospace;
+    --r-sm: 6px; --r-md: 10px; --r-lg: 12px; --r-xl: 14px;
+    --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-8: 32px;
+    --t-fast: 120ms; --t-base: 160ms;
+    --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+  }
+
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+
+  .scene {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-6);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle radial glow using system blue */
+  .scene::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(177,197,255,0.05) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity var(--t-base) var(--ease-out), transform var(--t-base) var(--ease-out);
+  }
+  @starting-style { .card { opacity: 0; transform: translateY(8px); } }
+
+  .logo {
+    font-family: var(--font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text);
+    margin-bottom: var(--sp-2);
+  }
+  .logo span { color: var(--blue); }
+
+  .tagline {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+
+  .google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-3);
+    width: 100%;
+    padding: 12px var(--sp-5);
+    background: rgba(177, 197, 255, 0.07);
+    border: 1px solid rgba(177, 197, 255, 0.18);
+    border-radius: var(--r-md);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background var(--t-fast) var(--ease-out),
+      border-color var(--t-fast) var(--ease-out),
+      transform var(--t-fast) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .google-btn:hover {
+      background: rgba(177, 197, 255, 0.12);
+      border-color: rgba(177, 197, 255, 0.3);
+    }
+  }
+  .google-btn:active { transform: scale(0.97); }
+  .google-btn svg { flex-shrink: 0; }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    text-align: left;
+    margin-bottom: 28px;
+  }
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .feature-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .feature strong { color: var(--muted2); }
+
+  .footer {
+    margin-top: var(--sp-6);
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .error-msg {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--r-sm);
+    padding: 9px var(--sp-3);
+    font-size: 12px;
+    color: #f87171;
+    margin-bottom: var(--sp-4);
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="card">
+    <div class="logo">CREST<span>.</span></div>
+    <div class="tagline">Your personal investment intelligence platform.</div>
+
+    <div class="features">
+      <div class="feature"><div class="feature-dot"></div><span><strong>Vault</strong> — Portfolio analytics with health score &amp; CAGR</span></div>
+      <div class="feature"><div class="feature-dot"></div><span><strong>Alpha Scanner</strong> — Weekly SEPA swing trade picks</span></div>
+      <div class="feature"><div class="feature-dot"></div><span><strong>Market Pulse</strong> — Real-time breadth, heatmap &amp; signals</span></div>
+      <div class="feature"><div class="feature-dot"></div><span><strong>Wavesight</strong> — Multi-pane live charts</span></div>
+    </div>
+
+    <div id="errorMsg" class="error-msg"></div>
+
+    <a href="/auth/google" class="google-btn">
+      <svg width="18" height="18" viewBox="0 0 18 18">
+        <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
+        <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+        <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/>
+        <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
+      </svg>
+      Continue with Google
+    </a>
+
+    <div class="footer">By signing in you agree to use this platform responsibly.<br>Your data is stored locally and never shared.</div>
+  </div>
+</div>
+<script>
+  const p = new URLSearchParams(location.search);
+  if (p.get('auth_error')) {
+    const el = document.getElementById('errorMsg');
+    el.style.display = 'block';
+    el.textContent = p.get('auth_error') === 'forbidden'
+      ? 'Access denied for this Google account.'
+      : 'Sign-in failed. Please try again.';
+  }
+</script>
+</body>
+</html>

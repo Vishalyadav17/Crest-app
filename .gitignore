@@ -1,0 +1,33 @@
+nohup.out
+*.db
+db.sqlite3
+backend/.env
+backend/data/crest.db
+backend/data/cache/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.venv/
+backend/.pytest_cache/
+.pytest_cache/
+client_secret_*.json
+*.pyc
+.DS_Store
+.od/
+screenshots/
+backend/data/backups/
+
+# audit screenshots (not code)
+backend/screenshots_audit/
+screenshots_audit/
+
+# personal config + positions (ship *.example.json instead)
+backend/config.json
+backend/data/portfolio.json
+backend/data/swings.json
+
+# runtime state (regenerates; no example needed)
+backend/data/quotes.json
+backend/data/last_scan.json
+backend/data/last_scan_v2.json
+backend/data/scan_history_v2/
+backend/data/validation/

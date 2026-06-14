@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="asset-version" content="20">
+<title>Crest</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" integrity="sha384-e6nUZLBkQ86NJ6TVVKAeSaK8jWa3NhkYWZFomE39AvDbQWeie9PlQqM3pmYW5d1g" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js" integrity="sha384-JZigAjwiaZtkUbA44CWkPaT3iBb/mU5pO6QOANp+OqHd4q+1+7MG1kzp2OOP9ZfP" crossorigin="anonymous"></script>
+<script src="/js/ws.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/theme.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/ui.css">
+<link rel="stylesheet" href="/css/components.css">
+<script src="/js/fmt.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/state.js"></script>
+<script src="/js/ui/m1_portfolio.js"></script>
+<script src="/js/ui/m2_market.js"></script>
+<script src="/js/ui/m3_trades.js"></script>
+<script src="/js/ui/m3_vault.js"></script>
+<script src="/js/ui/m3_swings.js"></script>
+<script src="/js/ui/m4_charts.js"></script>
+<script src="/js/ui/m5_watchlist.js"></script>
+<script src="/js/ui/m6_settings.js"></script>
+<script src="/js/ui/m3_research.js"></script>
+<script src="/js/ui/m7_indices.js"></script>
+</head>
+<body>
+
+<div class="atmo-bg"><div class="blob blob-1"></div><div class="blob blob-2"></div></div>
+
+<!-- TOP NAV -->
+<header class="top-nav">
+  <div class="top-nav-left">
+    <div class="logo-text" onclick="toggleSidebar()" style="cursor:pointer;user-select:none">Crest</div>
+    <nav class="module-tabs">
+      <div class="mod-tab active" data-mod="m1" onclick="switchModule('m1')">Vault</div>
+      <div class="mod-tab" data-mod="m2" onclick="switchModule('m2')">Market Pulse</div>
+      <div class="mod-tab" data-mod="m3" onclick="switchModule('m3')">Alpha Scanner</div>
+      <div class="mod-tab" data-mod="m4" onclick="switchModule('m4')">Wavesight</div>
+      <div class="mod-tab" data-mod="m6" onclick="switchModule('m6')"><span class="material-symbols-outlined" style="font-size:15px;vertical-align:middle;margin-right:4px">settings</span>Settings</div>
+    </nav>
+  </div>
+  <div class="top-nav-right">
+    <div class="as-of" id="asOf">–</div>
+    <button class="privacy-btn" id="privacyBtn" onclick="togglePrivacy()" title="Toggle privacy">
+      <span class="material-symbols-outlined" style="font-size:18px">visibility</span>
+    </button>
+    <div class="notif-wrap">
+      <button class="notif-bell" id="notifBell" data-action="notif-toggle" title="Notifications">
+        <span class="material-symbols-outlined" style="font-size:18px">notifications</span>
+        <span class="notif-badge" id="notifBadge" style="display:none">0</span>
+      </button>
+      <div class="notif-dropdown" id="notifDropdown">
+        <div class="notif-hdr">
+          <span>Notifications</span>
+          <button class="notif-mark-all" data-action="notif-mark-all">Mark all read</button>
+        </div>
+        <div class="notif-list"></div>
+      </div>
+    </div>
+    <div class="account">
+      <button class="account-trigger" id="accountTrigger" data-action="account-toggle" aria-haspopup="menu" aria-expanded="false" title="Account">
+        <span class="user-avatar" id="userAvatar">V</span>
+      </button>
+      <div class="account-menu" id="accountMenu" role="menu">
+        <div class="account-id">
+          <span class="account-id-avatar">V</span>
+          <div class="account-id-text">
+            <div class="account-id-name" id="accountName">Vishal</div>
+            <div class="account-id-email" id="accountEmail">–</div>
+          </div>
+        </div>
+        <div class="account-menu-sep"></div>
+        <button class="account-menu-item" data-action="open-settings" role="menuitem">
+          <span class="material-symbols-outlined">settings</span>Settings
+        </button>
+        <button class="account-menu-item danger" data-action="logout" role="menuitem">
+          <span class="material-symbols-outlined">logout</span>Sign out
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar sidebar-hidden" id="sidebar">
+    <!-- Vault -->
+    <div class="sidebar-section active" id="sidebar-m1">
+      <div class="sidebar-hdr" style="position:relative">
+        <div class="sidebar-title">Vault</div>
+        <div class="sidebar-subtitle">Portfolio Intelligence</div>
+        <button class="sidebar-close-btn" onclick="sidebarClose()" title="Close sidebar">✕</button>
+      </div>
+      <a class="sidebar-link active" data-sub="overview" onclick="switchSub('overview')">
+        <span class="material-symbols-outlined">dashboard</span><span>Snapshot</span>
+      </a>
+      <a class="sidebar-link" data-sub="allocation" onclick="switchSub('allocation')">
+        <span class="material-symbols-outlined">pie_chart</span><span>Allocation</span>
+      </a>
+      <a class="sidebar-link" data-sub="equity" onclick="switchSub('equity')">
+        <span class="material-symbols-outlined">trending_up</span><span>Indian Equity</span>
+      </a>
+      <a class="sidebar-link" data-sub="mf" onclick="switchSub('mf')">
+        <span class="material-symbols-outlined">account_balance</span><span>Mutual Funds</span>
+      </a>
+      <a class="sidebar-link" data-sub="global" onclick="switchSub('global')">
+        <span class="material-symbols-outlined">public</span><span>US Equity</span>
+      </a>
+      <a class="sidebar-link" data-sub="crypto" onclick="switchSub('crypto')">
+        <span class="material-symbols-outlined">currency_bitcoin</span><span>Crypto</span>
+      </a>
+      <div class="sidebar-footer"><p>Investing since Oct 2022</p></div>
+    </div>
+    <!-- Other modules: sidebar always shows Vault nav -->
+  </aside>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content full-width" id="page-content">
+
+    <!-- ═══ MODULE 1: VAULT ═══ -->
+    <div class="module-panel active" id="mod-m1">
+
+      <!-- OVERVIEW -->
+      <div class="sub-panel active" id="sub-overview">
+        <div class="container">
+
+          <!-- Row 1: Quote + Health Score -->
+          <div class="v1-top-row">
+            <div class="v1-quote-card">
+              <button class="v1-quote-refresh" onclick="nextQuote()" title="Next quote">↻</button>
+              <div class="v1-quote-text" id="quoteText">Loading…</div>
+              <div class="v1-quote-footer">
+                <div class="v1-quote-author" id="quoteAuthor"></div>
+              </div>
+            </div>
+            <div class="v1-score-card" id="scoreCard" style="display:none">
+              <div class="v1-score-num" id="scoreVal">–</div>
+              <div class="v1-score-right">
+                <div class="v1-score-label">Health Score /100</div>
+                <div class="v1-score-target" id="scoreTarget"></div>
+                <div class="v1-score-mini-bars" id="scoreDims"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Wealth strip + asset bar -->
+          <div class="v1-wealth-strip">
+            <div class="v1-wealth-top">
+              <div class="v1-wealth-main">
+                <div class="label">Total Wealth</div>
+                <div class="value"><span class="amt" id="totalWealth">–</span><span class="v1-wealth-delta amt" id="totalRet"></span></div>
+              </div>
+              <div class="wealth-div"></div>
+              <div class="v1-wealth-item">
+                <div class="label">Invested</div>
+                <div class="value blue-c amt" id="totalInvested">–</div>
+                <div class="sub amt" id="totalPnl">–</div>
+              </div>
+              <div class="v1-wealth-item">
+                <div class="label">CAGR</div>
+                <div class="value amt" id="totalCagr">–</div>
+                <div class="sub">since Oct 2022</div>
+              </div>
+              <div class="v1-wealth-item">
+                <div class="label">Stocks</div>
+                <div class="value amt" id="stocksVal">–</div>
+              </div>
+              <div class="v1-wealth-item">
+                <div class="label">Mutual Funds</div>
+                <div class="value amt" id="mfVal">–</div>
+              </div>
+              <div class="v1-wealth-item">
+                <div class="label">Cash</div>
+                <div class="value cyan-c amt" id="cashVal">–</div>
+              </div>
+            </div>
+            <div class="v1-asset-bar">
+              <div class="v1-asset-seg-stocks" id="v1SegStocks" style="width:60%"></div>
+              <div class="v1-asset-seg-mf" id="v1SegMf" style="width:30%"></div>
+              <div class="v1-asset-seg-cash" id="v1SegCash" style="width:10%"></div>
+            </div>
+            <div class="v1-asset-legend">
+              <div class="v1-asset-legend-item"><div class="v1-asset-legend-dot" style="background:#4e8ef7"></div><span id="v1LegStocks">Stocks –%</span></div>
+              <div class="v1-asset-legend-item"><div class="v1-asset-legend-dot" style="background:#a259f7"></div><span id="v1LegMf">MF –%</span></div>
+              <div class="v1-asset-legend-item"><div class="v1-asset-legend-dot" style="background:var(--cyan)"></div><span id="v1LegCash">Cash –%</span></div>
+            </div>
+          </div>
+
+          <!-- Kite sync row (shown when linked) -->
+          <div id="m1KiteRow" style="display:none;align-items:center;gap:8px;padding:8px 0;flex-wrap:wrap">
+            <span style="font-size:11px;color:var(--muted);font-family:var(--font-display)">Kite sync:</span>
+          </div>
+
+          <!-- T+1 settlement -->
+          <div id="t0Card" class="t0-card" style="display:none">
+            <h3 id="t0Title">T+1 Buys</h3>
+            <div class="t0-grid" id="t0Grid"></div>
+          </div>
+
+          <!-- Row 3: KPIs | Performance chart | Dimensions + Cash -->
+          <div class="v1-main-grid">
+            <div class="v1-kpi-col">
+              <div class="v1-kpi-mini">
+                <div class="label">Stocks</div>
+                <div class="value blue-c amt" id="boxStocksVal">–</div>
+                <div class="sub amt" id="boxStocksSub">–</div>
+              </div>
+              <div class="v1-kpi-mini">
+                <div class="label">Mutual Funds</div>
+                <div class="value blue-c amt" id="boxMfVal">–</div>
+                <div class="sub amt" id="boxMfSub">–</div>
+              </div>
+              <div class="v1-kpi-mini">
+                <div class="label">Gold</div>
+                <div class="value blue-c amt" id="boxGoldVal">–</div>
+                <div class="sub amt" id="boxGoldSub">–</div>
+              </div>
+              <div class="v1-kpi-mini">
+                <div class="label">ETFs</div>
+                <div class="value blue-c amt" id="boxEtfVal">–</div>
+                <div class="sub amt" id="boxEtfSub">–</div>
+              </div>
+            </div>
+            <div class="v1-chart-col">
+              <div class="v1-chart-hdr">
+                <span class="card-title">Portfolio vs Index <span style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(approx.)</span></span>
+                <div class="v1-chart-tabs">
+                  <button class="v1-chart-tab active" id="btnN50" onclick="loadAlpha('N50')">N50</button>
+                  <button class="v1-chart-tab" id="btnN500" onclick="loadAlpha('N500')">N500</button>
+                </div>
+              </div>
+              <div class="v1-chart-wrap"><canvas id="alphaChart"></canvas></div>
+              <div class="alpha-note" id="alphaNote"></div>
+            </div>
+            <div class="v1-dims-col">
+              <div class="v1-cash-card">
+                <div class="v1-cash-label">Cash Available</div>
+                <div class="v1-cash-val amt" id="kpiCash">–</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:3px;font-family:var(--font-display)" id="kpiCashSub">available to deploy</div>
+              </div>
+              <div class="v1-cash-card" style="margin-top:12px">
+                <div class="v1-cash-label">Crypto</div>
+                <div class="v1-cash-val amt" id="boxCryptoVal">₹0</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:3px;font-family:var(--font-display)">not connected</div>
+              </div>
+              <div class="v1-cash-card" style="margin-top:12px">
+                <div class="v1-cash-label">US Equity</div>
+                <div class="v1-cash-val amt" id="boxUsVal">₹0</div>
+                <div style="font-size:11px;color:var(--muted);margin-top:3px;font-family:var(--font-display)">not connected</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div><!-- /overview -->
+
+      <!-- ALLOCATION -->
+      <div class="sub-panel" id="sub-allocation">
+        <div class="container">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+            <div class="table-card">
+              <h3>Sector Allocation (Equity only)</h3>
+              <div class="pf-tbl-scroll">
+                <table id="sectorTable">
+                  <thead><tr><th style="text-align:left">Sector</th><th>% Equity</th><th>Capital</th><th># Stocks</th><th>Top Stock</th></tr></thead>
+                  <tbody id="sectorBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="table-card">
+              <h3>Market Cap Split (Equity only)</h3>
+              <div class="pf-tbl-scroll">
+                <table id="mcapTable">
+                  <thead><tr><th style="text-align:left">Bucket</th><th>% Equity</th><th>Capital</th><th># Stocks</th></tr></thead>
+                  <tbody id="mcapBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Holdings Concentration — Equity Only <span style="color:var(--muted);font-weight:400">(>5% flagged for TRIM)</span></h3>
+            <div class="conc-chart-wrap"><canvas id="concChart"></canvas></div>
+          </div>
+        </div>
+      </div><!-- /allocation -->
+
+      <!-- SWINGS -->
+      <!-- INDIAN EQUITY (long-term) -->
+      <div class="sub-panel" id="sub-equity">
+        <div class="container">
+          <div class="mf-kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Invested</div><div class="kpi-value blue-c amt" id="ieInvKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">Value</div><div class="kpi-value amt" id="ieValKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">P&amp;L</div><div class="kpi-value amt" id="iePnlKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">Holdings</div><div class="kpi-value amt" id="ieCntKpi">–</div></div>
+          </div>
+          <div class="table-card">
+            <h3>Long-term Holdings <span style="color:var(--muted);font-weight:400">— marked long-term on Kite refresh</span></h3>
+            <div class="pf-tbl-scroll pf-tbl-scroll-lg">
+              <table>
+                <thead><tr>
+                  <th style="text-align:left">Ticker</th><th style="text-align:left">Sector</th>
+                  <th>Qty</th><th>Avg ₹</th><th>CMP ₹</th>
+                  <th>Invested</th><th>Value</th><th>P&amp;L</th><th>P&amp;L %</th><th>Weight</th>
+                </tr></thead>
+                <tbody id="ieBody"><tr><td colspan="10" class="m3-trades-empty">No long-term holdings yet. Refresh from Kite in My Trades and tag holdings as Long-term.</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div><!-- /indian equity -->
+
+      <!-- MUTUAL FUNDS -->
+      <div class="sub-panel" id="sub-mf">
+        <div class="container">
+          <div class="mf-kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">MF Invested</div><div class="kpi-value blue-c amt" id="mfInvKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">MF Value</div><div class="kpi-value amt" id="mfValKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">MF P&amp;L</div><div class="kpi-value amt" id="mfPnlKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">MF Return</div><div class="kpi-value amt" id="mfRetKpi">–</div></div>
+          </div>
+          <div class="table-card" style="margin-bottom:16px">
+            <h3>All Mutual Fund Holdings</h3>
+            <table>
+              <thead><tr>
+                <th style="text-align:left">Fund</th><th style="text-align:left">Type</th>
+                <th>Units</th><th>Avg NAV</th><th>Curr NAV</th>
+                <th>Invested</th><th>Value</th><th>P&amp;L</th><th>P&amp;L %</th><th>Weight</th>
+              </tr></thead>
+              <tbody id="mfBody"></tbody>
+            </table>
+          </div>
+          <div id="mfExtraGrid" style="display:none;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="overlap-card" id="overlapCard"></div>
+            <div class="watchpoints" id="watchpointsCard"></div>
+          </div>
+          <div id="mfPicksSection"></div>
+        </div>
+      </div><!-- /mf -->
+
+      <!-- MF Scheme Search Modal -->
+      <div id="mfSchemeModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-box" style="max-width:480px">
+          <div class="modal-hdr"><h3>Link Scheme Code</h3><button class="modal-close" onclick="document.getElementById('mfSchemeModal').style.display='none'">✕</button></div>
+          <div style="padding:16px">
+            <input type="hidden" id="mfSchemeHoldingId">
+            <div style="display:flex;gap:8px;margin-bottom:12px">
+              <input id="mfSchemeSearchInput" class="inp" placeholder="Search fund name…" style="flex:1" onkeyup="if(event.key==='Enter')_mfSchemeSearch()">
+              <button class="btn-sm" onclick="_mfSchemeSearch()">Search</button>
+            </div>
+            <div id="mfSchemeResults" style="max-height:240px;overflow-y:auto"></div>
+            <div id="mfSchemeError" style="color:var(--red);font-size:12px;margin-top:8px;display:none"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MF NAV History Modal -->
+      <div id="mfNavModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-box" style="max-width:600px">
+          <div class="modal-hdr"><h3 id="mfNavModalTitle">NAV History</h3><button class="modal-close" onclick="document.getElementById('mfNavModal').style.display='none'">✕</button></div>
+          <div style="padding:16px">
+            <div id="mfNavChartStatus" style="color:var(--muted);font-size:12px;padding:8px"></div>
+            <div style="height:260px"><canvas id="mfNavChart"></canvas></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- US EQUITY (Global Holdings) -->
+      <div class="sub-panel" id="sub-global">
+        <div class="container">
+          <div class="mf-kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Invested</div><div class="kpi-value blue-c amt" id="usInvKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">Value</div><div class="kpi-value amt" id="usValKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">P&amp;L</div><div class="kpi-value amt" id="usPnlKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">FX Rate</div><div class="kpi-value" id="usFxKpi" style="font-family:var(--font-mono)">–</div></div>
+          </div>
+          <div class="table-card" style="margin-bottom:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <h3 style="margin:0">US Holdings</h3>
+              <button class="pf-add-btn" onclick="_openAddGlobalModal()"><span class="material-symbols-outlined">add</span>Add holding</button>
+            </div>
+            <table>
+              <thead><tr>
+                <th style="text-align:left">Ticker</th>
+                <th>Qty</th><th>Avg (USD)</th><th>LTP (USD)</th>
+                <th>Invested ₹</th><th>Value ₹</th><th>P&amp;L ₹</th><th>P&amp;L %</th>
+                <th></th>
+              </tr></thead>
+              <tbody id="usBody"><tr><td colspan="9" class="m3-trades-empty">No US holdings yet. Click + Add to add one.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /global -->
+
+      <!-- CRYPTO Holdings -->
+      <div class="sub-panel" id="sub-crypto">
+        <div class="container">
+          <div class="mf-kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Invested</div><div class="kpi-value blue-c amt" id="cryptoInvKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">Value</div><div class="kpi-value amt" id="cryptoValKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">P&amp;L</div><div class="kpi-value amt" id="cryptoPnlKpi">–</div></div>
+            <div class="kpi-card"><div class="kpi-label">Holdings</div><div class="kpi-value" id="cryptoCntKpi">–</div></div>
+          </div>
+          <div class="table-card" style="margin-bottom:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <h3 style="margin:0">Crypto Holdings</h3>
+              <button class="pf-add-btn" onclick="_openAddCryptoModal()"><span class="material-symbols-outlined">add</span>Add holding</button>
+            </div>
+            <table>
+              <thead><tr>
+                <th style="text-align:left">Coin</th>
+                <th>Qty</th><th>Avg (USD)</th><th>LTP (USD)</th>
+                <th>Invested ₹</th><th>Value ₹</th><th>P&amp;L ₹</th><th>P&amp;L %</th>
+                <th></th>
+              </tr></thead>
+              <tbody id="cryptoBody"><tr><td colspan="9" class="m3-trades-empty">No crypto holdings yet. Click + Add to add one.</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- /crypto -->
+
+      <!-- Add-holding modals -->
+      <div id="addGlobalModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-box" style="max-width:420px">
+          <div class="modal-hdr"><h3>Add US Holding</h3><button class="modal-close" onclick="document.getElementById('addGlobalModal').style.display='none'">✕</button></div>
+          <div style="display:grid;gap:10px;padding:16px">
+            <label>Ticker (e.g. AAPL) <input id="addUsSymInput" class="inp" placeholder="AAPL" style="text-transform:uppercase"></label>
+            <label>Qty <input id="addUsQtyInput" class="inp" type="number" step="any" placeholder="10"></label>
+            <label>Avg Price (USD) <input id="addUsAvgInput" class="inp" type="number" step="any" placeholder="150.00"></label>
+            <label>Exchange <input id="addUsExchInput" class="inp" placeholder="NASDAQ"></label>
+            <label>Broker <input id="addUsBrokerInput" class="inp" placeholder="Interactive Brokers"></label>
+            <div id="addUsError" style="color:var(--red);font-size:12px;display:none"></div>
+            <button class="btn-primary" onclick="_submitAddGlobal()">Add Holding</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="addCryptoModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+        <div class="modal-box" style="max-width:420px">
+          <div class="modal-hdr"><h3>Add Crypto Holding</h3><button class="modal-close" onclick="document.getElementById('addCryptoModal').style.display='none'">✕</button></div>
+          <div style="display:grid;gap:10px;padding:16px">
+            <label>Symbol (e.g. BTC) <input id="addCSymInput" class="inp" placeholder="BTC" style="text-transform:uppercase"></label>
+            <label>CoinGecko ID (e.g. bitcoin) <input id="addCCgInput" class="inp" placeholder="bitcoin"></label>
+            <label>Qty <input id="addCQtyInput" class="inp" type="number" step="any" placeholder="0.5"></label>
+            <label>Avg Price (USD) <input id="addCAvgInput" class="inp" type="number" step="any" placeholder="40000"></label>
+            <label>Wallet / Exchange <input id="addCWalletInput" class="inp" placeholder="Binance"></label>
+            <div id="addCError" style="color:var(--red);font-size:12px;display:none"></div>
+            <button class="btn-primary" onclick="_submitAddCrypto()">Add Holding</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /mod-m1 -->
+
+    <!-- ═══ MODULE 2: MARKET MONITOR ═══ -->
+    <div class="module-panel" id="mod-m2">
+      <div class="container">
+
+        <!-- Row 1: Index tape -->
+        <div class="m2-index-row" id="m2IndexRow">
+          <div class="m2-index-card"><div class="m2-index-label">NIFTY 50</div><div class="m2-index-price" style="color:var(--muted)">–</div></div>
+          <div class="m2-index-card"><div class="m2-index-label">BANK NIFTY</div><div class="m2-index-price" style="color:var(--muted)">–</div></div>
+          <div class="m2-index-card"><div class="m2-index-label">MIDCAP 100</div><div class="m2-index-price" style="color:var(--muted)">–</div></div>
+          <div class="m2-index-card"><div class="m2-index-label">SMALLCAP 100</div><div class="m2-index-price" style="color:var(--muted)">–</div></div>
+          <div class="m2-index-card"><div class="m2-index-label">USD/INR</div><div class="m2-index-price" style="color:var(--muted)">–</div></div>
+          <button class="m2-refresh-btn" id="m2IndexRefreshBtn" onclick="_refreshIndexTape()" title="Refresh index prices">
+            <span class="material-symbols-outlined" style="font-size:15px">refresh</span>
+          </button>
+        </div>
+
+        <!-- Row 2: Market Signal + A/D -->
+        <div class="m2-row2">
+          <div id="m2SignalBanner" class="m2-signal-card neutral">
+            <div class="m2-signal-dot neutral" id="m2SignalDot"></div>
+            <div>
+              <div class="m2-signal-label" id="m2SignalLabel">–</div>
+              <div class="m2-signal-sub" id="m2SignalSub">Loading market signal…</div>
+            </div>
+          </div>
+          <div class="m2-ad-card">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+              <span class="card-title">Advances / Declines</span>
+              <div class="m2-ad-info-wrap">
+                <span class="m2-ad-info-icon">ⓘ</span>
+                <div class="m2-ad-tooltip">
+                  <p><b>Advances</b> — stocks that closed higher than the previous session.</p>
+                  <p><b>Declines</b> — stocks that closed lower than the previous session.</p>
+                  <p><b>A/D Ratio</b> — Advances ÷ Declines. Above 1.0 = more stocks rose than fell; healthy bull = 2.0+.</p>
+                  <p><b>Bar</b> — green (advances) vs red (declines) proportion of the proxy basket.</p>
+                  <p style="color:var(--muted);font-size:10px;margin-top:8px">Based on a 30-stock large-cap proxy basket.</p>
+                </div>
+              </div>
+            </div>
+            <div class="m2-ad-nums">
+              <div class="m2-ad-num-block">
+                <div class="m2-ad-count adv" id="m2AdAdv">–</div>
+                <div class="m2-ad-count-label">Advancing</div>
+              </div>
+              <div class="m2-ad-ratio-block">
+                <div class="m2-ad-ratio-num" id="m2AdRatio">–</div>
+                <div class="m2-ad-ratio-label">A/D Ratio</div>
+              </div>
+              <div class="m2-ad-num-block right">
+                <div class="m2-ad-count dec" id="m2AdDec">–</div>
+                <div class="m2-ad-count-label">Declining</div>
+              </div>
+            </div>
+            <div class="m2-bicolor-bar">
+              <div class="bc-adv" id="m2BcAdv" style="width:50%"></div>
+              <div class="bc-dec" id="m2BcDec"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Sector heatmap + SEPA -->
+        <div class="m2-row3">
+          <div class="m2-sector-compact">
+            <div class="m2-sector-hdr">
+              <span class="card-title">Sector Heatmap</span>
+              <span id="m2MomentumCount" style="font-size:11px;color:var(--muted);font-family:var(--font-display)">–</span>
+            </div>
+            <div class="m2-sector-grid-sm" id="m2SectorGrid">
+              <div style="grid-column:1/-1;text-align:center;padding:16px;color:var(--muted)">Loading…</div>
+            </div>
+          </div>
+          <div class="m2-sepa-card">
+            <div class="m2-sepa-hdr">
+              <span class="card-title">SEPA Analyser</span>
+              <span class="m2-sepa-badge">PRO TOOLS</span>
+            </div>
+            <div class="m2-sepa-row">
+              <input type="text" id="m2SepaInput" placeholder="NSE ticker — e.g. POLYCAB" onkeydown="if(event.key==='Enter')runSepa()">
+              <button onclick="runSepa()">Analyse</button>
+            </div>
+            <div id="m2SepaResult" style="color:var(--muted);font-size:12px">Enter a ticker above to run a SEPA score (10–20s).</div>
+          </div>
+        </div>
+
+        <!-- Row 4: Gainers + Losers -->
+        <div class="m2-row4">
+          <div class="m2-gl-card">
+            <div class="m2-gl-hdr">
+              <span class="m2-gl-title">Top Gainers</span>
+              <span id="m2AsOf" style="font-size:11px;color:var(--muted);font-family:var(--font-display)"></span>
+              <button class="m2-refresh-btn" id="m2GlRefreshBtn" onclick="_refreshGainersLosers()" title="Refresh gainers &amp; losers">
+                <span class="material-symbols-outlined" style="font-size:15px">refresh</span>
+              </button>
+            </div>
+            <table class="m2-gl-table" style="margin-top:8px">
+              <thead><tr><th style="text-align:left">Ticker</th><th>Price</th><th>Chg %</th><th>Turnover</th></tr></thead>
+              <tbody id="m2GainersBody"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Loading…</td></tr></tbody>
+            </table>
+          </div>
+          <div class="m2-gl-card">
+            <div class="m2-gl-hdr">
+              <span class="m2-gl-title">Top Losers</span>
+            </div>
+            <table class="m2-gl-table" style="margin-top:8px">
+              <thead><tr><th style="text-align:left">Ticker</th><th>Price</th><th>Chg %</th><th>Turnover</th></tr></thead>
+              <tbody id="m2LosersBody"><tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Loading…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Row 5: Breadth table + News -->
+        <div class="m2-row5">
+          <div class="m2-breadth-card">
+            <div style="display:flex;align-items:center;gap:4px">
+              <span class="card-title">Market Breadth</span>
+              <span class="m2-breadth-sig" id="m2BreadthSignal"></span>
+            </div>
+            <table class="m2-breadth-tbl">
+              <thead><tr>
+                <th style="text-align:left">Index</th>
+                <th>% &gt; 20 DMA</th>
+                <th>% &gt; 50 DMA</th>
+                <th>% &gt; 200 DMA</th>
+              </tr></thead>
+              <tbody id="m2BreadthBody">
+                <tr><td colspan="4" style="text-align:center;color:var(--muted);padding:16px">Loading…</td></tr>
+              </tbody>
+            </table>
+            <div style="font-size:10px;color:var(--muted);margin-top:10px">Source: sectors.json constituents · 4h cache</div>
+          </div>
+          <div class="m2-news-card">
+            <div class="card-title" style="margin-bottom:10px">Market News</div>
+            <div id="m2NewsList"><div style="color:var(--muted);font-size:12px">Loading…</div></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /mod-m2 -->
+
+    <!-- ═══ MODULE 3: ALPHA SCANNER ═══ -->
+    <div class="module-panel" id="mod-m3">
+
+      <!-- Global scan-in-progress status -->
+      <div class="container" style="padding-bottom:0;padding-top:10px"><div class="m3-scan-status" id="m3ScanStatus" style="margin-bottom:0;display:none">Scan in progress… results will appear when complete.</div></div>
+
+      <!-- ── IDLE STATE ── -->
+      <div id="m3StateIdle" style="display:none">
+        <div class="container">
+          <!-- compact top bar -->
+          <div class="m3-compact-bar">
+            <div class="m3-cb-signal">
+              <div class="m3-cb-signal-badge neutral" id="m3CbSignalBadge">
+                <div class="m3-cb-signal-dot" style="background:var(--gold);box-shadow:none;animation:none"></div>
+                <span id="m3CbSignalText">NEUTRAL</span>
+              </div>
+              <div class="m3-cb-trend" id="m3CbTrend">Market Trend: –</div>
+            </div>
+            <div class="m3-cb-sectors" id="m3CbSectors"></div>
+            <div class="m3-cb-right">
+              <div class="m3-next-scan" id="m3NextScan">Auto-scan: Daily 9 PM IST</div>
+            </div>
+          </div>
+          <!-- big idle card -->
+          <div class="m3-idle-outer">
+            <div class="m3-idle-card">
+              <div class="m3-idle-icon">
+                <span class="material-symbols-outlined" style="font-size:34px;color:var(--muted)">manage_search</span>
+              </div>
+              <div class="m3-idle-title">Alpha Scanner Idle</div>
+              <div class="m3-idle-desc">No scan data yet. The scanner runs automatically every day at 9 PM IST across 500+ NSE stocks — picks appear here after the next run.</div>
+              <div class="m3-idle-strategy-grid">
+                <div class="m3-idle-strat-card">
+                  <div class="m3-idle-strat-tag">▽ SEPA Strategy</div>
+                  <div class="m3-idle-strat-body">Specific Entry Point Analysis. Identifying stocks with explosive earnings growth and low-risk entry pivots.</div>
+                </div>
+                <div class="m3-idle-strat-card">
+                  <div class="m3-idle-strat-tag">↗ Stage 2 Weinstein</div>
+                  <div class="m3-idle-strat-body">Capitalizing on the 'Advancing Phase' where institutional accumulation drives price above the 30-week Moving Average.</div>
+                </div>
+              </div>
+              <div class="m3-idle-hint">Scanning engine runs automatically at 9 PM IST daily on NIFTY 500…</div>
+            </div>
+            <div class="m3-feature-trio">
+              <div class="m3-feature-item">
+                <span class="material-symbols-outlined m3-feature-icon">bar_chart_4_bars</span>
+                <div><div class="m3-feature-title">Data Precision</div><div class="m3-feature-desc">Adjusted for dividends and stock splits for accurate Stage 2 mapping.</div></div>
+              </div>
+              <div class="m3-feature-item">
+                <span class="material-symbols-outlined m3-feature-icon">shield</span>
+                <div><div class="m3-feature-title">Risk Management</div><div class="m3-feature-desc">Automatic filtering for liquidity and market capitalization minimums.</div></div>
+              </div>
+              <div class="m3-feature-item">
+                <span class="material-symbols-outlined m3-feature-icon">lightbulb</span>
+                <div><div class="m3-feature-title">Institutional Edge</div><div class="m3-feature-desc">Focusing on high relative strength (RS) relative to the Nifty 50 benchmark.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── POPULATED STATE ── -->
+      <div id="m3StatePopulated" style="display:none">
+
+        <!-- Sub-tab bar -->
+        <div class="m3-subtab-bar">
+          <button class="m3-subtab active" id="m3TabBtnScanner"  onclick="switchM3Tab('scanner')">
+            <span class="material-symbols-outlined" style="font-size:15px">manage_search</span> Scanner
+          </button>
+          <button class="m3-subtab" id="m3TabBtnTrades" onclick="switchM3Tab('trades')">
+            <span class="material-symbols-outlined" style="font-size:15px">show_chart</span> My Trades
+            <span class="m3-subtab-badge" id="m3TradesBadge" style="display:none"></span>
+          </button>
+          <button class="m3-subtab" id="m3TabBtnAnalytics" onclick="switchM3Tab('analytics')">
+            <span class="material-symbols-outlined" style="font-size:15px">archive</span> Scan Vault
+          </button>
+          <button class="m3-subtab" id="m3TabBtnLab" onclick="switchM3Tab('lab')">
+            <span class="material-symbols-outlined" style="font-size:15px">science</span> Weekend Lab
+          </button>
+        </div>
+
+        <!-- ── TAB: SCANNER ── -->
+        <div id="m3PanelScanner" class="m3-tab-panel">
+        <div class="container">
+          <!-- scan status header -->
+          <div class="m3-scan-status-bar">
+            <div class="m3-active-badge">
+              <div class="m3-active-badge-dot"></div>
+              ACTIVE SCAN STATUS &nbsp;·&nbsp; <span id="m3ActivePicksCount">–</span> qualified picks in this month's basket
+            </div>
+            <div class="m3-scan-hdr-btns">
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+                <div class="m3-next-scan">Auto-scan: Daily 9 PM IST</div>
+                <div class="m3-last-run-chip" id="m3LastRunChip"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- IPO breakouts strip (top 2) -->
+          <div class="m3-ipo-strip" id="m3IpoStrip" style="display:none"></div>
+
+          <!-- sector momentum card -->
+          <!-- swing picks table -->
+          <div class="m3-picks-card">
+            <div class="m3-picks-hdr">
+              <div class="m3-picks-title">
+                <span class="material-symbols-outlined" style="font-size:18px;color:var(--blue)">calendar_today</span>
+                Swing Trades <span class="m3-picks-week-badge" id="m3PicksWeekBadge">This Month</span>
+              </div>
+              <div class="m3-picks-legend">
+                <div class="m3-picks-legend-item"><div class="m3-picks-legend-dot" style="background:var(--green)"></div>Institutional Buying</div>
+                <div class="m3-picks-legend-item"><div class="m3-picks-legend-dot" style="background:var(--gold)"></div>Volatility Contraction</div>
+              </div>
+            </div>
+            <!-- inline sector strip -->
+            <div class="m3-sector-strip">
+              <span class="m3-sector-strip-count" id="m3SectorMomCount">–</span>
+              <div class="m3-sector-strip-pills" id="m3SectorPillsPop"></div>
+            </div>
+            <div style="overflow-x:auto">
+              <table>
+                <thead><tr>
+                  <th style="text-align:left">RK</th>
+                  <th style="text-align:left">Ticker</th>
+                  <th style="text-align:left">Composite / 100</th>
+                  <th style="text-align:left">Entry Signal</th>
+                  <th>Entry Zone</th>
+                  <th>CMP</th>
+                  <th>SL</th>
+                  <th>Target</th>
+                  <th>R:R</th>
+                  <th>Market Cap</th>
+                  <th style="text-align:left">My Position</th>
+                </tr></thead>
+                <tbody id="m3PicksBody">
+                  <tr><td colspan="11" style="text-align:center;color:var(--muted);padding:28px">No picks loaded.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- tag legend -->
+            <div class="m3-tag-legend">
+              <div class="m3-tag-legend-item"><span class="m3-tag-legend-badge" style="background:rgba(239,68,68,0.12);color:var(--red)">HOLD</span> = Already in your LT portfolio</div>
+              <div class="m3-tag-legend-item"><span class="m3-tag-legend-badge" style="background:rgba(245,158,11,0.12);color:var(--gold)">FIT</span> = Meets portfolio fit criteria</div>
+              <div class="m3-tag-legend-item"><span class="m3-tag-legend-badge" style="background:rgba(16,185,129,0.12);color:var(--green)">HC</span> = High Conviction grade</div>
+              <div class="m3-tag-legend-item"><span class="m3-tag-legend-badge" style="background:rgba(139,92,246,0.12);color:#a78bfa">MCAP</span> = Nifty Microcap 250 — trade with caution</div>
+              <div class="m3-tag-legend-item" style="margin-left:auto;color:var(--muted)">CMP = Live price (↻ to refresh) · 📋 = hover for entry signal explanation</div>
+            </div>
+          </div>
+
+        </div>
+        </div><!-- /m3PanelScanner -->
+
+        <!-- ── TAB: MY TRADES ── -->
+        <div id="m3PanelTrades" class="m3-tab-panel" style="display:none">
+          <div class="container">
+            <div class="m3-trades-toolbar" style="display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:10px">
+              <span id="m3ReconcileMsg" style="font-size:11px;color:var(--muted);font-family:var(--font-display)"></span>
+              <button class="m3-rerun-btn" id="m3ReconcileBtn" onclick="reconcileTrades()">
+                <span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle">sync</span> Refresh from Kite
+              </button>
+            </div>
+            <!-- Summary KPI row -->
+            <div class="m3-trades-kpi-row" id="m3TradesKpiRow">
+              <div class="m3-trades-kpi"><div class="m3-trades-kpi-label">Deployed</div><div class="m3-trades-kpi-val" id="m3KpiDeployed">–</div></div>
+              <div class="m3-trades-kpi"><div class="m3-trades-kpi-label">Unrealised P&amp;L</div><div class="m3-trades-kpi-val" id="m3KpiUnrealised">–</div><div class="m3-trades-kpi-sub" id="m3KpiUnrealisedPct"></div></div>
+              <div class="m3-trades-kpi"><div class="m3-trades-kpi-label">Closed P&amp;L</div><div class="m3-trades-kpi-val" id="m3KpiClosedPl">–</div></div>
+              <div class="m3-trades-kpi"><div class="m3-trades-kpi-label">Win Rate</div><div class="m3-trades-kpi-val" id="m3KpiWinRate">–</div></div>
+            </div>
+            <!-- Swing budget meter (deployed vs free of ₹1L) -->
+            <div class="m3-budget-meter" id="m3BudgetMeter" style="display:none">
+              <div class="m3-budget-head">
+                <span class="m3-budget-label">Swing budget</span>
+                <span class="m3-budget-figs"><b id="m3BudgetDeployed">–</b> deployed · <span id="m3BudgetFree">–</span> free of <span id="m3BudgetTotal">–</span></span>
+              </div>
+              <div class="m3-budget-bar"><i id="m3BudgetFill"></i></div>
+            </div>
+
+            <!-- ── My Trades (consolidated: scanner + manual) ── -->
+            <div class="m3-trades-group">
+              <div class="m3-trades-group-hdr">
+                <div><span class="m3-trades-group-title">My Trades</span><span class="m3-trades-group-badge">scanner + manual</span></div>
+                <button class="m3-add-swing-btn" onclick="_showSwingAddForm()">+ Add Manual Trade</button>
+              </div>
+              <div id="m3SwingAddFormWrap"></div>
+
+              <!-- Open -->
+              <div class="m3-trades-section">
+                <div class="m3-trades-section-hdr m3-collapsible" onclick="toggleTradesTable('open')">
+                  <span class="m3-collapse-caret" id="m3OpenCaret">▾</span>
+                  <span class="m3-trades-section-title">Open Positions</span>
+                  <span class="m3-trades-section-count" id="m3TradesOpenCount">–</span>
+                </div>
+                <div style="overflow-x:auto" id="m3OpenTableWrap">
+                  <table class="m3-trades-tbl">
+                    <thead><tr>
+                      <th style="text-align:left">Ticker</th>
+                      <th>Type</th>
+                      <th>Avg ₹</th>
+                      <th>Qty</th>
+                      <th>Invested</th>
+                      <th>CMP</th>
+                      <th>P&amp;L ₹</th>
+                      <th>P&amp;L %</th>
+                      <th>SL</th>
+                      <th>Target</th>
+                      <th></th>
+                    </tr></thead>
+                    <tbody id="m3TradesOpenBody">
+                      <tr><td colspan="11" class="m3-trades-empty">No open trades. Click "Refresh from Kite" or "+ Add Manual Trade".</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Closed -->
+              <div class="m3-trades-section" style="margin-top:16px">
+                <div class="m3-trades-section-hdr m3-collapsible" onclick="toggleTradesTable('closed')">
+                  <span class="m3-collapse-caret" id="m3ClosedCaret">▾</span>
+                  <span class="m3-trades-section-title">Closed Trades</span>
+                  <span class="m3-trades-section-count" id="m3TradesClosedCount">–</span>
+                </div>
+                <div id="m3ClosedTableWrap">
+                <div style="overflow-x:auto">
+                  <table class="m3-trades-tbl">
+                    <thead><tr>
+                      <th style="text-align:left">Ticker</th>
+                      <th>Type</th>
+                      <th>Avg ₹</th>
+                      <th>Exit ₹</th>
+                      <th>Qty</th>
+                      <th>P&amp;L ₹</th>
+                      <th>Return %</th>
+                      <th>Result</th>
+                    </tr></thead>
+                    <tbody id="m3TradesClosedBody">
+                      <tr><td colspan="8" class="m3-trades-empty">No closed trades yet.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="m3-trades-pager" id="m3ClosedPager" style="display:none"></div>
+                </div>
+              </div>
+            </div><!-- /my trades -->
+
+          </div>
+        </div><!-- /m3PanelTrades -->
+
+        <!-- ── TAB: SCAN VAULT ── -->
+        <div id="m3PanelAnalytics" class="m3-tab-panel" style="display:none">
+          <div class="container">
+            <!-- AI daily market note (full text) -->
+            <div class="m3-market-note" id="m3MarketNote" style="display:none"></div>
+            <!-- Sector allocation + Avg R:R + Win Rate — dynamic on folder select -->
+            <div class="m3-vault-top-row">
+              <div class="m3-vault-stat-chip">
+                <span class="m3-vsc-label">Sectors</span>
+                <div class="m3-vsc-pills" id="m3VaultSectorPills"><span style="color:var(--muted);font-size:11px">–</span></div>
+              </div>
+              <div class="m3-vault-stat-chip">
+                <span class="m3-vsc-label">Avg R:R</span>
+                <span class="m3-vsc-val green" id="m3VaultRR">–</span>
+                <span class="m3-vsc-sep">·</span>
+                <span class="m3-vsc-label">Win Rate</span>
+                <span class="m3-vsc-val" id="m3VaultWinRate">–</span>
+                <span class="m3-vsc-sep">·</span>
+                <span class="m3-vsc-val" id="m3VaultSentiment">–</span>
+              </div>
+            </div>
+            <!-- Controls: search icon + month picker -->
+            <div class="m3-vault-ctrl-row">
+              <div class="m3-vault-search-wrap2">
+                <button class="m3-vault-search-btn" id="m3VaultSearchBtn" onclick="_toggleVaultSearch(this)" title="Search scans">
+                  <span class="material-symbols-outlined" style="font-size:16px">search</span>
+                </button>
+                <input type="text" class="m3-vault-search-inp" id="m3VaultSearch" placeholder="Search scans…" oninput="filterVaultCards(this.value)" style="display:none">
+              </div>
+              <select class="m3-vault-month-sel" id="m3VaultMonthSel" onchange="_onVaultMonthChange(this.value)"></select>
+            </div>
+            <!-- ⑥ Forward-track — collapsible, closed by default -->
+            <div class="m3-fwd" id="m3FwdWrap" style="display:none">
+              <div class="m3-fwd-bar" onclick="_toggleForwardTrack()">
+                <div class="m3-fwd-bar-l">
+                  <span class="material-symbols-outlined" style="font-size:16px;color:var(--blue)">query_stats</span>
+                  <span class="m3-fwd-bar-title">Forward-track</span>
+                  <span class="m3-fwd-bar-sub" id="m3FwdBarSub">predictive scorecard · click to expand</span>
+                </div>
+                <div class="m3-fwd-guide" onclick="event.stopPropagation()"
+                     onmouseenter="_showFwdGuide(this)" onmouseleave="_hideExplain()">
+                  <span class="material-symbols-outlined" style="font-size:14px">help</span> How to read
+                </div>
+              </div>
+              <div class="m3-val-wrap" id="m3ValWrap" style="display:none"></div>
+            </div>
+            <!-- Split: folder list (left) + detail panel (right) -->
+            <div class="m3-vault-split">
+              <div class="m3-vault-folder-list" id="m3VaultGrid"></div>
+              <div class="m3-vault-detail" id="m3VaultDetail">
+                <div class="m3-vault-detail-empty">
+                  <span class="material-symbols-outlined" style="font-size:36px;color:var(--muted)">folder_open</span>
+                  <div style="font-size:13px;color:var(--muted2);margin-top:10px">Select a scan folder to view its picks</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /m3PanelAnalytics -->
+
+        <!-- ── TAB: WEEKEND LAB ── -->
+        <div id="m3PanelLab" class="m3-tab-panel" style="display:none">
+          <div class="container">
+            <div id="wl-root">
+              <!-- populated by m3_research.js -->
+              <div class="m3-empty-state" style="margin-top:40px">
+                <span class="material-symbols-outlined" style="font-size:48px;color:var(--text-muted)">science</span>
+                <p style="color:var(--text-muted);margin-top:12px">Loading Weekend Lab…</p>
+              </div>
+            </div>
+          </div>
+        </div><!-- /m3PanelLab -->
+
+        <!-- AI verdict drawer (right-slide) -->
+        <div class="m3-ai-drawer-backdrop" id="m3VaultAiBackdrop" onclick="closeAiDrawer()"></div>
+        <aside class="m3-ai-drawer" id="m3VaultAiDrawer">
+          <div class="m3-ai-drawer-hdr">
+            <span class="material-symbols-outlined" style="color:var(--purple)">psychology</span>
+            <span class="m3-ai-drawer-sym"></span>
+            <button class="m3-ai-drawer-close" onclick="closeAiDrawer()"><span class="material-symbols-outlined">close</span></button>
+          </div>
+          <div class="m3-ai-drawer-body"></div>
+        </aside>
+
+        <!-- ⑤ Order recommendation popover -->
+        <div class="m3-ord-pop" id="m3OrderPop" onclick="if(event.target===this)this.classList.remove('open')">
+          <div class="m3-ord-card">
+            <h3 id="m3OrderTitle">Order</h3>
+            <div class="m3-ord-rec">📋 Recommend-only · copy to Kite manually</div>
+            <div class="m3-ord-line" id="m3OrderLine"></div>
+            <div class="m3-ord-row">
+              <button class="cp" id="m3OrderCopy">Copy order line</button>
+              <button class="cl" onclick="document.getElementById('m3OrderPop').classList.remove('open')">Close</button>
+            </div>
+            <div class="m3-ord-note">Crest never places orders — Kite stays read-only. Qty risk-sized per your scanner risk settings (capital · risk % · slot cap · mcap fit).</div>
+          </div>
+        </div>
+
+      </div><!-- /m3StatePopulated -->
+
+    </div><!-- /mod-m3 -->
+
+    <!-- ═══ MODULE 4: WAVESIGHT ═══ -->
+    <div class="module-panel" id="mod-m4">
+      <div id="chartsToolbar"></div>
+      <div id="m4Body">
+        <div id="chartsGrid" class="lc-grid-4"></div>
+        <div id="m4RightPanel" class="rp-hidden">
+          <div id="m4Watchlist" class="m4-rp-sec rp-sec-hidden"></div>
+          <div id="m4InfoPanel" class="m4-rp-sec rp-sec-hidden"></div>
+          <div id="m4IndicesPanel" class="m4-rp-sec rp-sec-hidden"></div>
+        </div>
+      </div>
+    </div><!-- /mod-m4 -->
+
+    <!-- ═══ MODULE 6: SETTINGS ═══ -->
+    <div class="module-panel" id="mod-m6">
+      <div class="container">
+        <div id="m6Shell"></div>
+      </div>
+    </div><!-- /mod-m6 -->
+
+  </div><!-- /page-content -->
+</div><!-- /layout -->
+
+<div class="footer">Crest · Data from Zerodha Kite · Private — Local Use Only</div>
+<div id="m3ExplainTip"></div>
+
+<script src="/js/shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+  "_comment": "symbol -> NotebookLM notebook URL. e.g. \"GRSE\": \"https://notebooklm.google.com/notebook/xxxx\"",
+  "_example_GRSE": "https://notebooklm.google.com/notebook/REPLACE_ME"
+}

@@ -1,0 +1,26 @@
+**/__pycache__/
+**/*.pyc
+backend/.venv/
+backend/.pytest_cache/
+.pytest_cache/
+.git/
+.od/
+screenshots/
+backend/screenshots_audit/
+backend/data/cache/
+backend/data/backups/
+backend/data/*.db
+*.db
+nohup.out
+.DS_Store
+# never bake secrets or personal positions into the image
+backend/.env
+.env
+client_secret_*.json
+backend/config.json
+backend/data/portfolio.json
+backend/data/swings.json
+backend/data/quotes.json
+backend/data/last_scan*.json
+backend/data/scan_history_v2/
+backend/data/validation/

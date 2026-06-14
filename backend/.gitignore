@@ -1,0 +1,11 @@
+nohup.out
+*.db
+growpilot.db
+db.sqlite3
+.env
+*.env
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+venv/

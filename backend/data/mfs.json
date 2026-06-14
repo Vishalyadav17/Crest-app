@@ -1,0 +1,27 @@
+{
+  "holdings": [
+    {"name":"Canara Robeco ELSS Tax Saver",          "short":"Canara Robeco ELSS",   "type":"ELSS",   "units":15.453,   "avg":129.474, "nav":198.86},
+    {"name":"Mirae Asset ELSS Tax Saver",             "short":"Mirae Asset ELSS",     "type":"ELSS",   "units":464.92,   "avg":36.564,  "nav":55.952},
+    {"name":"Navi Nifty 50 Index Fund",               "short":"Navi Nifty 50",        "type":"Index",  "units":1674.761, "avg":15.34,   "nav":15.9553},
+    {"name":"Zerodha Nifty LargeMidcap 250 Index",   "short":"Zerodha LargeMid 250", "type":"Index",  "units":2055.44,  "avg":13.364,  "nav":14.2129},
+    {"name":"Axis ELSS Tax Saver",                    "short":"Axis ELSS",            "type":"ELSS",   "units":226.592,  "avg":75.02,   "nav":107.3354},
+    {"name":"Bandhan ELSS Tax Saver",                 "short":"Bandhan ELSS",         "type":"ELSS",   "units":139.711,  "avg":121.673, "nav":176.883},
+    {"name":"Axis Small Cap Fund",                    "short":"Axis Small Cap",       "type":"Active", "units":153.245,  "avg":117.454, "nav":126.14},
+    {"name":"Invesco India Midcap Fund",              "short":"Invesco Midcap",       "type":"Active", "units":84.768,   "avg":212.335, "nav":224.67},
+    {"name":"Navi ELSS Tax Saver Nifty 50",           "short":"Navi ELSS (Nifty 50)","type":"ELSS",   "units":172.033,  "avg":14.531,  "nav":14.7068},
+    {"name":"Parag Parikh Flexi Cap Fund",            "short":"PPFCF (Groww)",        "type":"Active", "units":746.711,  "avg":88.08,   "nav":91.52}
+  ],
+  "overlap": {
+    "elss_overlap": "5 ELSS funds (Canara Robeco, Mirae, Axis, Bandhan, Navi) all hold Nifty large-caps — heavy overlap in top 50 stocks.",
+    "navi_duplicate": "Navi ELSS Nifty 50 and Navi Nifty 50 Index are essentially the same exposure (₹25k+ combined). Exit one after lock-in.",
+    "bfsi_hidden": "Banking+Finance true exposure: ₹1.59L across all funds combined — concentrated sector risk not visible from fund names alone.",
+    "ppfcf_international": "PPFCF holds Google (4%), Meta (2.5%), Amazon (2.1%), Microsoft (2%) = ₹7,237 in global tech. No separate US fund needed."
+  },
+  "watchpoints": [
+    "Consolidate ELSS: post lock-in expiry, exit Navi ELSS + Bandhan ELSS — move to Canara Robeco (best performer) and Mirae.",
+    "Navi duplication: ₹28k+ in two Navi funds tracking Nifty 50 — exit Navi ELSS after 3-yr lock-in, keep Navi Nifty 50 Index.",
+    "BFSI concentration: true exposure ≈ ₹1.59L (26%+ of combined portfolio) when you include fund holdings — stay aware when adding Finance stocks.",
+    "No separate US/Nasdaq fund needed — PPFCF already gives ₹7k+ in US tech through its international allocation.",
+    "Review quarterly: update NAVs and check if active funds (Axis Small Cap, Invesco Midcap, PPFCF) are consistently beating their benchmark."
+  ]
+}

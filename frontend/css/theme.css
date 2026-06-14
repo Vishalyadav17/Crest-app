@@ -1,0 +1,31 @@
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;display:inline-block;line-height:1;vertical-align:middle;font-size:20px;}
+:root{
+  --bg:#0b1326;--surface:#171f33;--surface2:#131b2e;--surface3:#222a3d;
+  --surface-el:#1E293B;--surface-low:#060e20;
+  --border:#334155;--border2:#424653;
+  --text:#dae2fd;--muted:#8d909f;--muted2:#c3c6d5;
+  --green:#10B981;--red:#EF4444;--blue:#b1c5ff;--blue-action:#0051c0;
+  --gold:#F59E0B;--tertiary:#ffb59a;--purple:#9050e8;--cyan:#22d3ee;
+  --orange:#f06030;--amber:#F59E0B;
+  /* Collapse to Geist family; Geist Mono for all financial figures */
+  --font-sans:'Geist','Inter',system-ui,sans-serif;
+  --font-display:'Geist',system-ui,sans-serif;
+  --font-mono:'Geist Mono','Geist','Courier New',monospace;
+  --nav-h:56px;--sidebar-w:256px;
+  /* === TYPE SCALE === */
+  --fs-10:10px;--fs-11:11px;--fs-12:12px;--fs-13:13px;
+  --fs-16:16px;--fs-18:18px;--fs-24:24px;--fs-28:28px;
+  --fs-40:40px;--fs-52:52px;
+  /* === SPACING (4px grid) === */
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;
+  --sp-5:20px;--sp-6:24px;--sp-7:28px;--sp-8:32px;
+  /* === RADIUS === */
+  --r-sm:6px;--r-md:10px;--r-lg:12px;--r-xl:14px;
+  /* === SHADOW === */
+  --shadow-pop:0 8px 32px rgba(0,0,0,.5);
+  --shadow-menu:0 14px 36px -10px rgba(0,0,0,.6);
+  /* === MOTION === */
+  --t-instant:80ms;--t-fast:120ms;--t-base:160ms;--t-slow:240ms;
+  --ease-out:cubic-bezier(0.0,0,0.2,1);
+  --ease-spring:cubic-bezier(0.22,1,0.36,1);
+}

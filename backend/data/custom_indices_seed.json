@@ -1,0 +1,215 @@
+[
+  {
+    "name": "Affordable Housing Finance Index",
+    "note": "Used Stocks Data_Housing Finance.csv (fuller than 5 visible in screenshot)",
+    "symbols": ["SAMMAANCAP","PIRAMALFIN","PNBHOUSING","SRGHFL","HUDCO","LICHSGFIN","AADHARHFC","CANFINHOME","APTUS","FUSION","REPCOHOME","ICDSLTD","HOMEFIRST","VHL","INDIASHLTR","BAIDFIN","GICHSGFIN","AAVAS","BAJAJHFL","CHOLAHLDNG","SUNDARMFIN","MUTHOOTCAP","RHFL","TRU"]
+  },
+  {
+    "name": "Agrochemical Domestic Index",
+    "symbols": ["HERANBA","INSECTICID","BESTAGRO","IPL","DHARMAJ","DHANUKA"]
+  },
+  {
+    "name": "Alcoholic Beverages Index",
+    "note": "Used Stocks Data_Breweries & Distilleries.csv; JAGAJITIND, PICCADIL, INDIAGLYCO from screenshot not in CSV",
+    "symbols": ["RADICO","ABDL","IFBAGRO","GMBREW","PRAJIND","TI","GLOBUSSPR","RKDL","ASALCBR","UNITDSPR","SULA","UBL","SDBL"]
+  },
+  {
+    "name": "Cables - Power Index",
+    "note": "Used Stocks Data_Cables - Electricals.csv (12 stocks vs 7 visible)",
+    "symbols": ["UNIVCABLES","VIDYAWIRES","PARACABLES","RRKABEL","ADVAIT","POLYCAB","CORDSCABLE","KEI","FINCABLES","PLAZACABLE","DYCL","CMICABLES"]
+  },
+  {
+    "name": "CDMO Index",
+    "symbols": ["SYNGENE","NEULANDLAB","PPLPHARMA","HIKAL","DIVISLAB"]
+  },
+  {
+    "name": "Cements Index",
+    "note": "Used Stocks Data_Cement.csv (30 stocks vs 18 visible)",
+    "symbols": ["KESORAMIND","MANGLMCEM","BURNPUR","BVCL","INDIACEM","JSWCEMENT","KAKATCEM","APCL","STARCEMENT","NCLIND","SHREDIGCEM","NUVOCO","ULTRACEMCO","BIRLACORPN","KCP","PRSMJOHNSN","SHREECEM","JKCEMENT","HEIDELBERG","SAGCEM","RAMCOCEM","ACL","DALBHARAT","AMBUJACEM","JKLAKSHMI","ACC","DECCANCE","SAURASHCEM","ORIENTCEM","BILVYAPAR"]
+  },
+  {
+    "name": "Commercial Vehicle Finance Index",
+    "symbols": ["SUNDARMFIN","SHRIRAMFIN","M&MFIN","CHOLAFIN"]
+  },
+  {
+    "name": "Consumer Electronics EMS Index",
+    "symbols": ["SYRMA","KAYNES","AMBER","AVALON","PGEL","EPACK","DIXON"]
+  },
+  {
+    "name": "Contract Manufacturing Index",
+    "symbols": ["AMBER","PGEL","EPACK","DIXON","INFLAME","OPTIEMUS"]
+  },
+  {
+    "name": "Co-Working Index",
+    "note": "KONTOR not in stock_master",
+    "symbols": ["AWFIS","WEWORK","SMARTWORKS","EFCIL"]
+  },
+  {
+    "name": "Credit Ratings Index",
+    "symbols": ["ICRA","CRISIL","CARERATING"]
+  },
+  {
+    "name": "Data Centre Index",
+    "symbols": ["E2E","ANANTRAJ","TECHNOE","BBOX","NETWEB"]
+  },
+  {
+    "name": "Diagnostics Index",
+    "note": "3BBLACKBIO confirmed in DB; SURAKSHA confirmed",
+    "symbols": ["THYROCARE","3BBLACKBIO","VIJAYA","LALPATHLAB","KRSNAA","METROPOLIS","SURAKSHA"]
+  },
+  {
+    "name": "Diamonds, Gems & Jewellery Index",
+    "note": "Used Stocks Data_Jewellery.csv (30 stocks vs 17 visible); GARGI from screenshot not in DB",
+    "symbols": ["THANGAMAYL","SKYGOLD","GOLDIAM","KDDL","SILGO","TITAN","BLUESTONE","SENCO","SHANTIGOLD","TBZ","PNGJL","RBZJEWEL","VAIBHAVGBL","SHRINGARMS","PNGSREVA","ASTAR","KANANIIND","ETHOSLTD","BANARBEADS","MOKSH","RGL","PCJEWELLER","LGHL","LYPSAGEMS","MVGJL","KALYANKJIL","RADHIKAJWE","MOTISONS","DPABHUSHAN","RAJESHEXPO"]
+  },
+  {
+    "name": "Finance - AMC Index",
+    "note": "SRAMSET not in stock_master (likely ETF not AMC co.)",
+    "symbols": ["HDFCAMC","ICICIAMC","ABSLAMC","UTIAMC","CRAMC","TATACAP","NAM-INDIA"]
+  },
+  {
+    "name": "Geospatial Index",
+    "symbols": ["MAPMYINDIA","GENESYS"]
+  },
+  {
+    "name": "Gold Loan Finance Index",
+    "symbols": ["CSBBANK","FEDFINA","IIFL","MANAPPURAM","MUTHOOTFIN"]
+  },
+  {
+    "name": "Heavy Engineering Equipment Index",
+    "symbols": ["KLBRENG-B","BEWLTD","GMMPFAUDLR","HLEGLAS","PRAJIND","THERMAX"]
+  },
+  {
+    "name": "Hospitals Index",
+    "note": "Used Stocks Data_Hospitals.csv (24 stocks); KMCSHIL from screenshot not in DB",
+    "symbols": ["KOVAI","PARKHOSPS","GAUDIUMIVF","NEPHROPLUS","YATHARTH","LOTUSEYE","GKSL","ASTERDM","KIMS","APOLLOHOSP","ARTEMISMED","FORTIS","NH","GPTHEALTH","AGARWALEYE","HCG","DRAGARWQ","MEDANTA","RAINBOW","SHALBY","SURAKSHA","JLHL","INDRAMEDCO","MAXHEALTH"]
+  },
+  {
+    "name": "Hotels Index",
+    "note": "Used Stocks Data_Hotels.csv (36 stocks); BENARAS, UPHOT from screenshot not in DB",
+    "symbols": ["AHLWEST","SAYAJIHOTL","VHLTD","AHLEAST","BLUECOAST","GRAVISSHO","MCCHRLS-B","APOLSINHOT","THELEELA","ASIANHOTNR","INDHOTEL","ADVANIHOTR","SAMHI","TGBHOTELS","CHALET","ORIENTHOT","VENTIVE","BRIGHOTEL","TAJGVK","SINCLAIR","RHL","JUNIPER","PARKHOTELS","CCHHL","EIHAHOTELS","HLVLTD","ROHLTD","EIHOTEL","KAMATHOTEL","LEMONTREE","ITCHOTELS","UNIVAFOODS","MHRIL","BYKE","DIL","ADVENTHTL"]
+  },
+  {
+    "name": "Liquid Handling Terminals Index",
+    "symbols": ["ADANIPORTS","AEGISLOG","GANESHBE","GPPL"]
+  },
+  {
+    "name": "Logistics Index",
+    "note": "Used Stocks Data_Logistics.csv (37 stocks vs 7 visible)",
+    "symbols": ["SHADOWFAX","JETFREIGHT","MAHESHWARI","DJML","GLOTTIS","SVLL","PATINTLOG","TVSSCS","SINDHUTRAD","AEGISLOG","DELHIVERY","RITCO","GKWLIMITED","MAHLOG","NAVKARCORP","TIGERLOGS","ACCURACY","OMFREIGHT","RUCHINFRA","GATEWAY","OBCL","SICALLOG","BLACKBUCK","TARACHAND","ALLCARGO","TCI","NECCLTD","AVG","VRLLOG","CONCOR","SNOWMAN","TCIEXP","WCIL","BLUEDART","ARSHIYA","TOTAL","GICL"]
+  },
+  {
+    "name": "Micro Finance Index",
+    "symbols": ["ARMANFIN","CREDITACC","FUSION","SATIN","SPANDANA"]
+  },
+  {
+    "name": "Middle Class Apparel Index",
+    "symbols": ["GOCOLORS","TRENT","SHOPERSTOP","MANYAVAR","CANTABIL","ARVINDFASN"]
+  },
+  {
+    "name": "Mining / Minerals Index",
+    "symbols": ["ASHAPURMIN","ORISSAMINE","VEDL","MOIL","DECNGOLD","GMDCLTD","COALINDIA","KIOCL"]
+  },
+  {
+    "name": "Opalware / Kitchenware Index",
+    "symbols": ["STOVKRAFT","LAOPALA","HAWKINCOOK","TTKPRESTIG","CELLO","BOROLTD"]
+  },
+  {
+    "name": "Paints Index",
+    "note": "Used Stocks Data_Paints.csv (10 stocks vs 7 visible)",
+    "symbols": ["SANGINITA","ASIANPAINT","JSWDULUX","BERGEPAINT","KANSAINER","SIRCA","INDIGOPNTS","HINDCON","KAMOPAINTS","SHALPAINTS"]
+  },
+  {
+    "name": "Paper Index",
+    "note": "Used Stocks Data_Paper & Paper Products.csv (25 stocks vs 6 visible)",
+    "symbols": ["NRAIL","WSTCSTPAPR","JKPAPER","TNPL","EMAMIPAP","METROGLOBL","SAPPL","MALUPAPER","RUCHIRA","RAMANEWS","ANDHRAPAP","STARPAPER","SESHAPAPER","PDMJEPAPER","MAGNUM","GENUSPAPER","KUANTUM","SUNDARAM","ABREL","ORIENTPPR","SATIA","SHREYANIND","SHRENIK","PAKKA","ASTRON"]
+  },
+  {
+    "name": "PET Waste Recycling Index",
+    "symbols": ["POCL","GRAVITA","ECORECO","GANECOS"]
+  },
+  {
+    "name": "Polyester Films Index",
+    "symbols": ["GRWRHITECH","POLYPLEX","ESTER","JINDALPOLY","COSMOFIRST"]
+  },
+  {
+    "name": "Pre-Engineered Buildings Index",
+    "symbols": ["PENIND","MBEL","INTERARCH","EVERESTIND","EPACKPEB"]
+  },
+  {
+    "name": "Private Large Banks Index",
+    "symbols": ["ICICIBANK","AXISBANK","HDFCBANK","KOTAKBANK"]
+  },
+  {
+    "name": "PSU Banks Index",
+    "note": "Used Stocks Data_PSU Banks.csv (same count as screenshot)",
+    "symbols": ["MAHABANK","INDIANB","UNIONBANK","CANBK","BANKINDIA","SBIN","BANKBARODA","PNB","IOB","UCOBANK","PSB","CENTRALBK","FINOPB"]
+  },
+  {
+    "name": "QSR Index",
+    "symbols": ["JUBLFOOD","SAPPHIRE","WESTLIFE","SPECIALITY","RBA","DEVYANI"]
+  },
+  {
+    "name": "Railways Index",
+    "note": "Used Stocks Data_Railways.csv (8 stocks vs 6 visible); added RAILTEL, RITES, IRCON, TEXRAIL, IRFC",
+    "symbols": ["TITAGARH","JWL","RAILTEL","RITES","IRCON","TEXRAIL","IRFC","RVNL"]
+  },
+  {
+    "name": "Refrigerant Gas Index",
+    "symbols": ["FLUOROCHEM","JUBLINGREA","NAVINFLUOR","SRF"]
+  },
+  {
+    "name": "Shipping Index",
+    "symbols": ["SEAMECLTD","GESHIP","KMEW","SCI","DREDGECORP"]
+  },
+  {
+    "name": "Small Finance Banks Index",
+    "symbols": ["AUBANK","FINOPB","UJJIVANSFB","JSFB","EQUITASBNK","SURYODAY"]
+  },
+  {
+    "name": "Solar Index",
+    "note": "ALPEXSOLAR, ORIANA not in stock_master",
+    "symbols": ["SOLEX","WEBELSOLAR","WAAREERTL","INA","WAAREEENER","SWSOLAR"]
+  },
+  {
+    "name": "Steel Pipes Index",
+    "symbols": ["JTLIND","RAMASTEEL","APLAPOLLO","HITECH","HARIOMPIPE"]
+  },
+  {
+    "name": "Sugar Index",
+    "note": "Used Stocks Data_Sugar.csv (30 stocks vs 9 visible)",
+    "symbols": ["MGEL","DBOL","MAWANASUG","PONNIERODE","DIAMONDYD","VADILALIND","AVADHSUGAR","DHAMPURSUG","DWARKESH","UTTAMSUGAR","BALRAMCHIN","JAYAGROGN","BAJAJHIND","PICCADIL","DALMIASUG","UGARSUGAR","SUKHJITS","RAJSREESUG","RANASUG","TASTYBITE","TRIVENI","DAVANGERE","SAKHTISUG","KCPSUGIND","MAGADSUGAR","KOTARISUG","RENUKA","EIDPARRY","SIMBHALS","DCMSRIND"]
+  },
+  {
+    "name": "Transformer / CRGO Index",
+    "note": "CSV had only 4 stocks; screenshot showed 11 — used screenshot (richer)",
+    "symbols": ["TARIL","VOLTAMP","SIEMENS","SHILCTECH","ABB","INDOTECH","CGPOWER","BBL","JAYBEE","VILAS","POWERINDIA"]
+  },
+  {
+    "name": "Transmission Index",
+    "symbols": ["SHILCTECH","APARINDS","BBL","KEI","POLYCAB","POWERGRID","SKIPPER","TARIL","TECHNOE","VOLTAMP"]
+  },
+  {
+    "name": "Tubes & Tyres Index",
+    "note": "Used Stocks Data_Tyres & Rubber Products.csv (16 stocks vs 7 visible)",
+    "symbols": ["SANDHAR","TVSSRICHAK","TINNARUBR","MODIRUBBER","RUBFILA","PTL","JKTYRE","BALKRISIND","ELGIRUBCO","GRPLTD","CEATLTD","MRF","APOLLOTYRE","SOMICONVEY","TOLINS","GOODYEAR"]
+  },
+  {
+    "name": "Water EPC Index",
+    "note": "CSV (Water Supply & Management) has different stocks; used screenshot (more EPC-specific)",
+    "symbols": ["WELENT","WABAG","IONEXCHANG","VPRPL","EMSLIMITED","JASH"]
+  },
+  {
+    "unresolved": [
+      {"sym": "GARGI",       "index": "Diamonds, Gems & Jewellery Index", "reason": "not in stock_master"},
+      {"sym": "JAGAJITIND",  "index": "Alcoholic Beverages Index",        "reason": "not in stock_master"},
+      {"sym": "KMCSHIL",     "index": "Hospitals Index",                   "reason": "not in stock_master"},
+      {"sym": "SRAMSET",     "index": "Finance - AMC Index",               "reason": "not in stock_master (possibly ETF)"},
+      {"sym": "KONTOR",      "index": "Co-Working Index",                  "reason": "not in stock_master"},
+      {"sym": "BENARAS",     "index": "Hotels Index",                      "reason": "not in stock_master"},
+      {"sym": "UPHOT",       "index": "Hotels Index",                      "reason": "not in stock_master"},
+      {"sym": "ORIANA",      "index": "Solar Index",                       "reason": "not in stock_master"},
+      {"sym": "ALPEXSOLAR",  "index": "Solar Index",                       "reason": "not in stock_master"}
+    ]
+  }
+]

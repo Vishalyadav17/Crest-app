@@ -1,0 +1,19 @@
+{
+  "first_trade_date": "2024-01-01",
+  "as_of": "2026-01-01T16:00:00+05:30",
+  "cash": 10000,
+  "score": {
+    "overall": 7.0,
+    "target": 8.0,
+    "dimensions": [
+      {"name": "Diversification",  "val": 7.0, "note": "Sample note"},
+      {"name": "Risk Management",  "val": 7.0, "note": "Sample note"},
+      {"name": "Growth Potential", "val": 7.0, "note": "Sample note"}
+    ],
+    "verdict": "Sample portfolio verdict text."
+  },
+  "holdings": [
+    {"sym":"NIFTYBEES", "sector":"ETF",    "mcap_bucket":"Large", "mcap_cr":null,    "qty":10, "avg":270.00, "ltp":270.00, "is_etf":true},
+    {"sym":"RELIANCE",  "sector":"Energy", "mcap_bucket":"Large", "mcap_cr":1800000, "qty":5,  "avg":1300.00,"ltp":1388.00,"is_etf":false}
+  ]
+}

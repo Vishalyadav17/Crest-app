@@ -1,0 +1,61 @@
+{
+  "auth": {
+    "enabled": false,
+    "allowed_email": "you@example.com",
+    "redirect_uri": "http://localhost:8000/auth/google/callback"
+  },
+  "swing_budget": 100000,
+  "my_holdings": [
+    "RELIANCE",
+    "ITC",
+    "NIFTYBEES"
+  ],
+  "data_dir": "data",
+  "cache_dir": "data/cache",
+  "email": {
+    "from": "you@gmail.com",
+    "to": "you@gmail.com",
+    "app_password": "FILL_IN"
+  },
+  "scan": {
+    "schedule": "saturday",
+    "time_ist": "20:00",
+    "top_n": 10,
+    "min_score": 60
+  },
+  "scanner_v2": {
+    "composite_weights": {
+      "sector": 0.3,
+      "rs_leadership": 0.3,
+      "sepa": 0.25,
+      "breakout": 0.15
+    },
+    "sector_momentum_weights": {
+      "csv": 0.4,
+      "mcw": 0.6
+    },
+    "sector_score_threshold": 60,
+    "top_n": 10,
+    "ipo_top_n": 2,
+    "ipo_listing_cutoff": "2025-01-01",
+    "risk": {
+      "capital": 100000,
+      "risk_pct_per_trade": 0.01,
+      "max_pct_per_position": 0.10,
+      "mcap_fit_ceiling_cr": 30000,
+      "slot_size": 5000,
+      "slot_size_high": 10000,
+      "high_confidence_composite": 90
+    },
+    "liquidity": {
+      "min_turnover_cr": 1.0
+    },
+    "data_quality": {
+      "max_stale_days": 5,
+      "min_rows": 60
+    },
+    "mcw": {
+      "cache_ttl": 86400
+    }
+  }
+}

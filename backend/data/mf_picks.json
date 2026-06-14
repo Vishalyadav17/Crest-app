@@ -1,0 +1,52 @@
+[
+  {
+    "category": "Large Cap",
+    "funds": [
+      {"name": "Mirae Asset Large Cap Fund - Growth", "scheme_code": "120503", "why": "Consistent large-cap outperformer, low expense ratio"},
+      {"name": "Axis Bluechip Fund - Growth", "scheme_code": "120465", "why": "Quality bias, low volatility"},
+      {"name": "Canara Robeco Bluechip Equity Fund - Growth", "scheme_code": "118989", "why": "Strong long-term compounder"},
+      {"name": "HDFC Top 100 Fund - Growth", "scheme_code": "119598", "why": "Largest AUM large cap, well-diversified"},
+      {"name": "Kotak Bluechip Fund - Growth", "scheme_code": "120255", "why": "Steady performer with value tilt"}
+    ]
+  },
+  {
+    "category": "Mid Cap",
+    "funds": [
+      {"name": "Kotak Emerging Equity Fund - Growth", "scheme_code": "131074", "why": "Top-rated mid cap, consistent alpha"},
+      {"name": "Axis Midcap Fund - Growth", "scheme_code": "120841", "why": "Quality-focused mid cap, compounding track record"},
+      {"name": "Nippon India Growth Fund - Growth", "scheme_code": "101066", "why": "Old-guard mid cap with deep research bench"},
+      {"name": "HDFC Mid-Cap Opportunities Fund - Growth", "scheme_code": "119061", "why": "Largest mid-cap by AUM"},
+      {"name": "DSP Midcap Fund - Growth", "scheme_code": "101571", "why": "Consistent mid-cycle outperformer"}
+    ]
+  },
+  {
+    "category": "Small Cap",
+    "funds": [
+      {"name": "Nippon India Small Cap Fund - Growth", "scheme_code": "118778", "why": "Largest small cap, diversified across 200+ stocks"},
+      {"name": "SBI Small Cap Fund - Growth", "scheme_code": "125494", "why": "Consistent quality small cap, closed periodically"},
+      {"name": "Axis Small Cap Fund - Growth", "scheme_code": "120840", "why": "Quality + growth bias in small caps"},
+      {"name": "Kotak Small Cap Fund - Growth", "scheme_code": "119230", "why": "Multi-cycle small cap performer"},
+      {"name": "HDFC Small Cap Fund - Growth", "scheme_code": "119230", "why": "Widely-held retail small cap option"}
+    ]
+  },
+  {
+    "category": "Flexi Cap",
+    "funds": [
+      {"name": "Parag Parikh Flexi Cap Fund - Growth", "scheme_code": "122639", "why": "Global diversification + value, low correlation to Nifty"},
+      {"name": "HDFC Flexi Cap Fund - Growth", "scheme_code": "130503", "why": "All-cycle performer, large AUM"},
+      {"name": "Kotak Flexi Cap Fund - Growth", "scheme_code": "120254", "why": "Steady multi-cap compounder"},
+      {"name": "UTI Flexi Cap Fund - Growth", "scheme_code": "120684", "why": "Quality growth bias"},
+      {"name": "Canara Robeco Flexi Cap Fund - Growth", "scheme_code": "118990", "why": "Underrated consistent performer"}
+    ]
+  },
+  {
+    "category": "ELSS",
+    "funds": [
+      {"name": "Mirae Asset Tax Saver Fund - Growth", "scheme_code": "118834", "why": "Best post-tax return ELSS, 3yr lock-in"},
+      {"name": "Axis Long Term Equity Fund - Growth", "scheme_code": "120503", "why": "Quality bias ELSS"},
+      {"name": "Canara Robeco Equity Tax Saver Fund - Growth", "scheme_code": "118985", "why": "Consistent, low expense ELSS"},
+      {"name": "DSP Tax Saver Fund - Growth", "scheme_code": "101569", "why": "Multi-cap ELSS with blend approach"},
+      {"name": "Kotak Tax Saver Fund - Growth", "scheme_code": "120256", "why": "Value-tilted ELSS compounder"}
+    ]
+  }
+]
