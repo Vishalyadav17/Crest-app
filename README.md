@@ -20,6 +20,12 @@ Portfolio tracking · a 9-stage alpha scanner · a swing-trading framework · AI
 
 **[Quick Start](#-quick-start-docker) · [Features](#-what-you-get) · [Screenshots](#-screenshots) · [Phone Access](#-use-it-from-your-phone) · [License](#-license)**
 
+<br>
+
+![Crest demo](docs/demo.gif)
+
+<sub>Vault · Market Pulse · Alpha Scanner · Wavesight · Weekend Lab · Settings — portfolio amounts blurred via the built-in privacy toggle.</sub>
+
 </div>
 
 ---
