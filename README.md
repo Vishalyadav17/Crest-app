@@ -97,6 +97,12 @@ The UI is responsive. Two easy ways:
 **Wavesight** — OHLC charting with watchlist, stock info & news drawer
 ![Wavesight](docs/04-wavesight.png)
 
+**Weekend Lab** — AI market stance, weekend review & next-week checklist, conviction-scored basket
+![Weekend Lab](docs/05-weekend-lab.png)
+
+**Settings** — notification digests, alert channels, and automation toggles (bring-your-own keys, all local)
+![Settings](docs/06-settings.png)
+
 ## 🧱 Tech stack
 
 | Layer | Tech |
