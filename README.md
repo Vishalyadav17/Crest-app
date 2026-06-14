@@ -85,11 +85,17 @@ The UI is responsive. Two easy ways:
 
 ## 📸 Screenshots
 
-> _Add screenshots/GIFs here — a strong hero shot of the Vault and a scanner GIF do most of the convincing. Drop images in `docs/` and reference them below._
+**Vault** — portfolio intelligence: health score, allocation, P&L, alpha vs index _(amounts blurred via the built-in privacy toggle)_
+![Vault](docs/01-vault.png)
 
-| Vault | Alpha Scanner | Wavesight |
-|---|---|---|
-| _coming soon_ | _coming soon_ | _coming soon_ |
+**Market Pulse** — live breadth, sector heatmap, advances/declines, SEPA analyser
+![Market Pulse](docs/02-market-pulse.png)
+
+**Alpha Scanner** — 9-stage composite scores, weekly basket, risk-sized entry zones & R:R
+![Alpha Scanner](docs/03-alpha-scanner.png)
+
+**Wavesight** — OHLC charting with watchlist, stock info & news drawer
+![Wavesight](docs/04-wavesight.png)
 
 ## 🧱 Tech stack
 
